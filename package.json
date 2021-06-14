@@ -22,9 +22,6 @@
     "prettier": "^2.3.1"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "express": "^4.17.1",
-    "express-generator": "^4.16.1",
-    "g": "^2.0.1"
+    "express-generator": "^4.2.0"
   }
 }
