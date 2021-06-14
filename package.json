@@ -1,0 +1,27 @@
+{
+  "name": "expressjs",
+  "version": "1.0.0",
+  "description": "curso avanzado de express JS",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "prettier": "prettier . --write",
+    "lint": "eslint . --fix",
+    "fix": "npm run prettier && npm run lint"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "Diana Carolina Campuzano Garzon <dcaroli2015@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "husky": "^6.0.0",
+    "prettier": "^2.3.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
