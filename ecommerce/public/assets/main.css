@@ -1,6 +1,6 @@
 root {
-  --primary-color: #1ad3ba;
-  --primary-color-darker: #08bf91;
+  --primary-color: ##00d1b2;
+  --primary-color-darker: ##00d1b2;
 }
 
 body {
@@ -54,20 +54,27 @@ img.cover-image {
 }
 
 .footer {
-  border-top: 5px solid var(--primary-color);
+  border-top: black;
+  background: #00d1b2;
+}
+.navbar > .container {
+  background: #00d1b2;
+  height: 80px;
 }
 
-/* Bulma overrides */
-.button.is-primary,
-.navbar.is-primary {
-  background: var(--primary-color);
+.level {
+  color: black;
 }
 
-.button.is-primary:hover,
-.button.is-primary:active {
-  background: var(--primary-color-darker);
+.level-item small {
+  color: black;
 }
 
-.icon.has-text-primary {
-  color: var(--primary-color) !important;
+.navbar-item a img {
+  width: 70px;
+  height: 70px;
+}
+
+.navbar-item img {
+  max-height: 4rem;
 }
