@@ -8,10 +8,10 @@ router.get('/', async (req, res, next) => {
   const { tags } = req.query
 
   try {
-    const products = await productsService.getProducts({ tags })
+    const getAllProducts = await productsService.getProducts({ tags })
 
     res.status(200).json({
-      data: products,
+      data: getAllProducts,
       message: 'Products listed',
     })
   } catch (error) {
@@ -23,10 +23,10 @@ router.get('/:productID', async (req, res, next) => {
   const { productID } = req.params
 
   try {
-    const product = await productsService.getProduct({ productID })
+    const getProduct = await productsService.getProduct({ productID })
 
     res.status(200).json({
-      data: product,
+      data: getProduct,
       message: 'Product retrieved',
     })
   } catch (error) {
@@ -70,12 +70,12 @@ router.put('/:productID', async (req, res, next) => {
 
 router.patch('/:productID', async (req, res, next) => {
   const { productID } = req.params
-  const { body: product } = req
+  const { body: atributes } = req
 
   try {
     const patchProduct = await productsService.upgradeProduct({
       productID,
-      product,
+      atributes,
     })
 
     res.status(200).send({
@@ -91,10 +91,10 @@ router.delete('/:productID', async (req, res, next) => {
   const { productID } = req.params
 
   try {
-    const product = await productsService.deleteProduct({ productID })
+    const deleteProduct = await productsService.deleteProduct({ productID })
 
     res.status(200).json({
-      data: product,
+      data: deleteProduct,
       message: 'Product deleted',
     })
   } catch (error) {

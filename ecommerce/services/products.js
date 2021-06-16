@@ -1,11 +1,17 @@
 /* eslint-disable no-unused-vars */
 const productsMocks = require('../utils/mocks/products')
+const MongoLib = require('../lib/mongo')
 
 class ProductsService {
-  constructor() {}
+  constructor() {
+    this.collection = 'products'
+    this.mongoDB = new MongoLib()
+  }
 
-  getProducts({ tags }) {
-    return Promise.resolve(productsMocks)
+  async getProducts({ tags }) {
+    const query = tags && { tags: { $in: tags } }
+    const products = await this.mongoDB.getAll(this.collection, query)
+    return products || []
   }
 
   getProduct({ productID }) {
@@ -16,7 +22,7 @@ class ProductsService {
     return Promise.resolve(productsMocks[0])
   }
 
-  upgradeProduct({ productID, product }) {
+  upgradeProduct({ productID, atributes }) {
     return Promise.resolve(productsMocks[0])
   }
 
