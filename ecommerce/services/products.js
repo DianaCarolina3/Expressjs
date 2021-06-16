@@ -14,24 +14,37 @@ class ProductsService {
     return products || []
   }
 
-  getProduct({ productID }) {
-    return Promise.resolve(productsMocks[0])
+  async getProduct({ productID }) {
+    const products = await this.mongoDB.get(this.collection, productID)
+    return products || []
   }
 
-  createProduct({ product }) {
-    return Promise.resolve(productsMocks[0])
+  async createProduct({ product }) {
+    const products = await this.mongoDB.create(this.collection, product)
+    return products || []
   }
 
-  upgradeProduct({ productID, atributes }) {
-    return Promise.resolve(productsMocks[0])
+  async upgradeProduct({ productID, atributes }) {
+    const products = await this.mongoDB.update(
+      this.collection,
+      productID,
+      atributes
+    )
+    return products || []
   }
 
-  updateProducts({ productID, product }) {
-    return Promise.resolve(productsMocks[0])
+  async updateProducts({ productID, atributes }) {
+    const products = await this.mongoDB.update(
+      this.collection,
+      productID,
+      atributes
+    )
+    return products || []
   }
 
-  deleteProduct({ productID }) {
-    return Promise.resolve(productsMocks[0])
+  async deleteProduct({ productID }) {
+    const products = await this.mongoDB.delete(this.collection, productID)
+    return products || []
   }
 }
 
