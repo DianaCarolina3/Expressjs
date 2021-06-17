@@ -9,35 +9,39 @@ const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@cluster0.y9xde.mongodb.net/
 
 class MongoLib {
   constructor() {
-    this.client = new MongoClient(MONGO_URI, { useUnifiedTopology: true })
+    this.client = new MongoClient(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     this.dbName = DB_NAME
   }
 
-  connect() {
-    return new Promise((resolve, reject) => {
-      this.client.connect((error) => {
-        if (error) reject(error)
-
-        console.log('Connected succesfully to mongo')
-        resolve(this.client.db(this.dbName))
-      })
-    })
+  async connect() {
+    if (!MongoLib.connection) {
+      try {
+        await this.client.connect()
+        console.log('Connected successfully to mongo')
+        MongoLib.connection = this.client.db(this.dbName)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return MongoLib.connection
   }
-
-  getAll(collection, query) {
-    return this.connect().then((db) => {
+  async getAll(collection, query) {
+    return await this.connect().then((db) => {
       return db.collection(collection).find(query).toArray()
     })
   }
 
-  get(collection, id) {
-    return this.connect().then((db) => {
+  async get(collection, id) {
+    return await this.connect().then((db) => {
       return db.collection(collection).findOne({ _id: ObjectId(id) })
     })
   }
 
-  create(collection, data) {
-    return this.connect()
+  async create(collection, data) {
+    return await this.connect()
       .then((db) => {
         return db.collection(collection).insertOne(data)
       })
@@ -46,20 +50,18 @@ class MongoLib {
       })
   }
 
-  update(collection, id, data) {
-    return this.connect()
+  async update(collection, id, data) {
+    return await this.connect()
       .then((db) => {
         return db
           .collection(collection)
           .updateOne({ _id: ObjectId(id) }, { $set: data }, { upsert: true })
       })
-      .then((result) => {
-        return result.upsertedId
-      })
+      .then((result) => result.upsertedId || id)
   }
 
-  delete(collection, id) {
-    return this.connect()
+  async delete(collection, id) {
+    return await this.connect()
       .then((db) => {
         return db.collection(collection).deleteOne({ _id: ObjectId(id) })
       })
