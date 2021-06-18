@@ -1,7 +1,21 @@
+const Sentry = require('@sentry/node')
 const { config } = require('../../config')
+
+Sentry.init({
+  dsn: `${config.sentryDns}`,
+  tracesSampleRate: 1.0,
+})
 
 const logErrors = (err, req, res, next) => {
   //logea el error con trayectoria
+  if (!config.dev) {
+    delete err.stack
+  }
+
+  //captura y guarda errore en sentry
+  Sentry.captureException(err)
+
+  res.render('error', { error: err })
   console.log(err.stack)
   next(err)
 }
