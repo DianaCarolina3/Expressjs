@@ -1,105 +1,139 @@
 const express = require('express')
 const router = express.Router()
 const ProductsService = require('../../services/products')
+const passport = require('passport')
 
 const productsService = new ProductsService()
 
-router.get('/', async (req, res, next) => {
-  const { tags } = req.query
+//JWT strategy
+require('../../utils/auth/strategies/jwt')
 
-  try {
-    const getAllProducts = await productsService.getProducts({ tags })
+router.get(
+  '/',
+  //autentificacion para get info
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { tags } = req.query
 
-    res.status(200).json({
-      data: getAllProducts,
-      message: 'Products listed',
-    })
-  } catch (error) {
-    next(error)
+    try {
+      const getAllProducts = await productsService.getProducts({ tags })
+
+      res.status(200).json({
+        data: getAllProducts,
+        message: 'Products listed',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.get('/:productID', async (req, res, next) => {
-  const { productID } = req.params
+router.get(
+  '/:productID',
+  //autentificacion para get info
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { productID } = req.params
 
-  try {
-    const getProduct = await productsService.getProduct({ productID })
+    try {
+      const getProduct = await productsService.getProduct({ productID })
 
-    res.status(200).json({
-      data: getProduct,
-      message: 'Product retrieved',
-    })
-  } catch (error) {
-    next(error)
+      res.status(200).json({
+        data: getProduct,
+        message: 'Product retrieved',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.post('/', async (req, res, next) => {
-  const { body: product } = req
+router.post(
+  '/',
+  //autentificacion para publicar post
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { body: product } = req
 
-  try {
-    const postProduct = await productsService.createProduct({ product })
+    try {
+      const postProduct = await productsService.createProduct({ product })
 
-    res.status(201).json({
-      data: postProduct,
-      message: 'Products listed',
-    })
-  } catch (error) {
-    next(error)
+      res.status(201).json({
+        data: postProduct,
+        message: 'Products listed',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.put('/:productID', async (req, res, next) => {
-  const { productID } = req.params
-  const { body: product } = req
+router.put(
+  '/:productID',
+  //autentificacion para update
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { productID } = req.params
+    const { body: product } = req
 
-  try {
-    const putProduct = await productsService.updateProducts({
-      productID,
-      product,
-    })
+    try {
+      const putProduct = await productsService.updateProducts({
+        productID,
+        product,
+      })
 
-    res.status(200).json({
-      data: putProduct,
-      message: 'Products updated',
-    })
-  } catch (error) {
-    next(error)
+      res.status(200).json({
+        data: putProduct,
+        message: 'Products updated',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.patch('/:productID', async (req, res, next) => {
-  const { productID } = req.params
-  const { body: atributes } = req
+router.patch(
+  '/:productID',
+  //autentificacion para update
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { productID } = req.params
+    const { body: atributes } = req
 
-  try {
-    const patchProduct = await productsService.upgradeProduct({
-      productID,
-      atributes,
-    })
+    try {
+      const patchProduct = await productsService.upgradeProduct({
+        productID,
+        atributes,
+      })
 
-    res.status(200).send({
-      data: patchProduct,
-      message: 'product upgraded',
-    })
-  } catch (error) {
-    next(error)
+      res.status(200).send({
+        data: patchProduct,
+        message: 'product upgraded',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.delete('/:productID', async (req, res, next) => {
-  const { productID } = req.params
+router.delete(
+  '/:productID',
+  //autentificacion para delete
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { productID } = req.params
 
-  try {
-    const deleteProduct = await productsService.deleteProduct({ productID })
+    try {
+      const deleteProduct = await productsService.deleteProduct({ productID })
 
-    res.status(200).json({
-      data: deleteProduct,
-      message: 'Product deleted',
-    })
-  } catch (error) {
-    next(error)
+      res.status(200).json({
+        data: deleteProduct,
+        message: 'Product deleted',
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 module.exports = router

@@ -10,6 +10,7 @@ const { config } = require('../../config')
 //Basic Strategy
 require('../../utils/auth/strategies/basic')
 
+//funciona como un closure
 api.post('/token', async (req, res, next) => {
   passport.authenticate('basic', (error, user) => {
     try {
