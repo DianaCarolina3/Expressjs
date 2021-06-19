@@ -4,7 +4,9 @@ const express = require('express')
 const path = require('path')
 const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
+const authApiRouter = require('./routes/api/auth')
 const boom = require('boom')
+const slash = require('express-slash')
 
 const {
   logErrors,
@@ -31,6 +33,7 @@ app.set('view engine', 'pug')
 // Routes
 app.use('/products', productsRouter)
 app.use('/api/products', productsApiRouter)
+app.use('/api/auth', authApiRouter)
 
 // redirect
 app.get('/', (req, res) => {
@@ -45,10 +48,13 @@ app.use(function (req, res, next) {
     } = boom.notFound()
 
     res.status(statusCode).json(payload)
+  } else {
+    res.status(404).render('404')
   }
-
-  res.status(404).render('404')
 })
+
+// express slash
+app.use(slash())
 
 // Errors Handlers
 app.use(logErrors)
