@@ -1,14 +1,18 @@
+/* eslint-disable no-unused-vars */
 const express = require('express')
 //devuelve la ruta del directorio actual
 const path = require('path')
 const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
+const boom = require('boom')
 
 const {
   logErrors,
+  wrapErrors,
   clientErrorsHandler,
   errorsHandler,
 } = require('./utils/middlewares/errorsHandlers')
+const isRequestAjaxOrApi = require('./utils/isRequestAjaxOrApi')
 
 // App
 const app = express()
@@ -33,8 +37,22 @@ app.get('/', (req, res) => {
   res.redirect('/products')
 })
 
+//error pag 404, ya que ninguna ruta responde
+app.use(function (req, res, next) {
+  if (isRequestAjaxOrApi(req)) {
+    const {
+      output: { statusCode, payload },
+    } = boom.notFound()
+
+    res.status(statusCode).json(payload)
+  }
+
+  res.status(404).render('404')
+})
+
 // Errors Handlers
 app.use(logErrors)
+app.use(wrapErrors)
 app.use(clientErrorsHandler)
 app.use(errorsHandler)
 

@@ -1,12 +1,22 @@
-// function validate(data, schema) {
-//   return false
-// }
+// //validation schemas
 
-// function validationHandler(schema, check = 'body') {
+// const { ObjectSchema } = require('yup')
+
+// // function validate(data, schema) {
+// //   const { error } = schema.validate(data)
+
+// //   return error
+// // }
+
+// // closures
+// function validate(schema = ObjectSchema, check = 'body') {
 //   return function (req, res, next) {
-//     const error = validate(req[check], schema)
-//     error ? next(new Error(error)) : next()
+//     try {
+//       schema.validate(req[check])
+//     } catch (error) {
+//       next(error)
+//     }
 //   }
 // }
 
-// module.exports = validationHandler
+// module.exports = validate
