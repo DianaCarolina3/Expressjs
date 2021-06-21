@@ -65,5 +65,6 @@ app.use(errorsHandler)
 
 // Server
 const server = app.listen(8000, () => {
-  debug(`Listening http://localhost:${server.address().port}`)
+  //debug(`Listening http://localhost:${server.address().port}`)
+  console.log(`Listening http://localhost:${server.address().port}`)
 })
