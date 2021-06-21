@@ -45,6 +45,12 @@ describe('routes - api - products', () => {
       request.post('/api/products').expect(201, done)
     })
   })
+  it('should response with not error', (done) => {
+    request.post('/api/products').end((err, res) => {
+      assert.strictEqual(err, null)
+      done()
+    })
+  })
 })
 
 //al eliminar autentificacion de usuario funciona
