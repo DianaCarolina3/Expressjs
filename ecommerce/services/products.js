@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const productsMocks = require('../utils/mocks/products')
+const productsMocks = require('../utils/mocks/productsMocks')
 const MongoLib = require('../lib/mongo')
 
 class ProductsService {

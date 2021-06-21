@@ -1,5 +1,3 @@
-// const { string, number, object } = require('yup')
-
 // const productsIdSchema = object().shape({
 //   id: string().matches('^[a-zA-Z0-9]{24}$'),
 // })

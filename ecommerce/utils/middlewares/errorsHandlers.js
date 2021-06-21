@@ -45,6 +45,7 @@ const clientErrorsHandler = (err, req, res, next) => {
     output: { statusCode, payload },
   } = err
 
+  //captura y guarda errore en sentry
   Sentry.captureException(err)
 
   // catch errors para AJAX request o si un error en streaming
@@ -56,6 +57,7 @@ const clientErrorsHandler = (err, req, res, next) => {
 }
 
 const errorsHandler = (err, req, res, next) => {
+  //captura y guarda errore en sentry
   Sentry.captureException(err)
 
   const {
