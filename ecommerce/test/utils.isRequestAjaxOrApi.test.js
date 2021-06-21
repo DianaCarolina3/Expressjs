@@ -11,7 +11,7 @@ describe('utils - isRequestAjaxOrApi', () => {
         xhr: false,
       }
       const result = isRequestAjaxOrApi(req)
-      assert.restrictEqual(result, false)
+      assert.strictEqual(result, false)
     })
   })
 })
