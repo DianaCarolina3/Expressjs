@@ -1,6 +1,6 @@
 const express = require('express')
 const ProductsService = require('../../services/products')
-const passport = require('passport')
+//const passport = require('passport')
 
 const productsService = new ProductsService()
 
@@ -16,7 +16,7 @@ function productsApi(app) {
   router.get(
     '/',
     //autentificacion para get info
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { tags } = req.query
 
@@ -36,7 +36,7 @@ function productsApi(app) {
   router.get(
     '/:productID',
     //autentificacion para get info
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { productID } = req.params
 
@@ -56,7 +56,7 @@ function productsApi(app) {
   router.post(
     '/',
     //autentificacion para publicar post
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { body: product } = req
 
@@ -76,7 +76,7 @@ function productsApi(app) {
   router.put(
     '/:productID',
     //autentificacion para update
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { productID } = req.params
       const { body: product } = req
@@ -100,7 +100,7 @@ function productsApi(app) {
   router.patch(
     '/:productID',
     //autentificacion para update
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { productID } = req.params
       const { body: atributes } = req
@@ -124,7 +124,7 @@ function productsApi(app) {
   router.delete(
     '/:productID',
     //autentificacion para delete
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
       const { productID } = req.params
 
