@@ -7,6 +7,7 @@ const productsApiRouter = require('./routes/api/products')
 const authApiRouter = require('./routes/api/auth')
 const boom = require('boom')
 const slash = require('express-slash')
+const debug = require('debug')('app:server')
 
 const {
   logErrors,
@@ -64,5 +65,5 @@ app.use(errorsHandler)
 
 // Server
 const server = app.listen(8000, () => {
-  console.log(`Listening http://localhost:${server.address().port}`)
+  debug(`Listening http://localhost:${server.address().port}`)
 })
