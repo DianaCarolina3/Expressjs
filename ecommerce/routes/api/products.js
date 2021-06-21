@@ -2,6 +2,13 @@ const express = require('express')
 const ProductsService = require('../../services/products')
 const passport = require('passport')
 
+//cache
+const cacheResponse = require('../../utils/cacheResponse')
+const {
+  FIVE_MINUTES_IN_SECONDS,
+  SIXTY_MINUTES_IN_SECONDS,
+} = require('../../utils/time')
+
 const productsService = new ProductsService()
 
 //JWT strategy
@@ -18,6 +25,8 @@ function productsApi(app) {
     //autentificacion para get info
     passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
+      cacheResponse(res, FIVE_MINUTES_IN_SECONDS)
+
       const { tags } = req.query
 
       try {
@@ -38,6 +47,8 @@ function productsApi(app) {
     //autentificacion para get info
     passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
+      cacheResponse(res, SIXTY_MINUTES_IN_SECONDS)
+
       const { productID } = req.params
 
       try {
