@@ -5,7 +5,7 @@ const express = require('express')
 const path = require('path')
 const boom = require('boom')
 const slash = require('express-slash')
-//const helmet = require('helmet') //no carga imagenes
+const helmet = require('helmet') //no carga imagenes
 //const debug = require('debug')('app:server')
 
 //router
@@ -28,7 +28,20 @@ const app = express()
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // Middlewares
-//app.use(helmet()) //anade http header para seguridad
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", 'data: https:'],
+        'script-src': [
+          "'self'",
+          'https://use.fontawesome.com/releases/v5.3.1/js/all.js',
+        ],
+      },
+    },
+  })
+) //anade http header para seguridad
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

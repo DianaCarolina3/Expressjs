@@ -24,10 +24,15 @@ async function hasAdminUser(mongoDB) {
 
 //crea usuario con password hashed
 async function createAdminUser(mongoDB) {
+  let saltRounds = 10
+
+  const salt = await bcrypt.genSaltSync(saltRounds)
+
   const hashedPassword = await bcrypt.hash(
     config.password.authAdminPassword,
-    10
+    salt
   )
+
   const userId = await mongoDB.create(
     'users',
     buildAdminUsername(hashedPassword)
