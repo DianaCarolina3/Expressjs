@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-vars */
 const express = require('express')
+
 //devuelve la ruta del directorio actual
 const path = require('path')
+const boom = require('boom')
+const slash = require('express-slash')
+//const helmet = require('helmet') //no carga imagenes
+//const debug = require('debug')('app:server')
+
+//router
 const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
 const authApiRouter = require('./routes/api/auth')
-const boom = require('boom')
-const slash = require('express-slash')
-const debug = require('debug')('app:server')
 
 const {
   logErrors,
@@ -24,6 +28,7 @@ const app = express()
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // Middlewares
+//app.use(helmet()) //anade http header para seguridad
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
