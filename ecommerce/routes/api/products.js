@@ -5,7 +5,7 @@ const passport = require('passport')
 const productsService = new ProductsService()
 
 //cache
-const cache = require('../../utils/cacheResponse')
+const cacheResponse = require('../../utils/cacheResponse')
 const {
   FIVE_MINUTES_IN_SECONDS,
   SIXTY_MINUTES_IN_SECONDS,
@@ -25,7 +25,8 @@ function productsApi(app) {
     //autentificacion para get info
     passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
-      cache(res, FIVE_MINUTES_IN_SECONDS)
+      //cache
+      cacheResponse(res, FIVE_MINUTES_IN_SECONDS)
       const { tags } = req.query
 
       try {
@@ -46,7 +47,8 @@ function productsApi(app) {
     //autentificacion para get info
     passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {
-      cache(res, SIXTY_MINUTES_IN_SECONDS)
+      //cache
+      cacheResponse(res, SIXTY_MINUTES_IN_SECONDS)
 
       const { productID } = req.params
 
