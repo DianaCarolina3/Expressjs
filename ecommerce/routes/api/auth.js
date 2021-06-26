@@ -18,7 +18,6 @@ api.post('/token', async (req, res, next) => {
       if (error || !user) {
         next(boom.unauthorized())
       }
-
       //no seccion al autentificar
       req.login(user, { session: false }, async (error) => {
         if (error) {
