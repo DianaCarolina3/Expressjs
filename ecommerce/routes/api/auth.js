@@ -11,15 +11,18 @@ const { config } = require('../../config')
 require('../../utils/auth/strategies/basic')
 
 //funciona como un closure
-api.post('/token', async (req, res, next) => {
-  passport.authenticate('basic', (error, user) => {
+api.post(
+  '/token',
+  passport.authenticate('basic', { session: false }),
+  async (req, res, next) => {
+    const user = req.user
     try {
       //si error en auth
-      if (error || !user) {
+      if (!user) {
         next(boom.unauthorized())
       }
       //no seccion al autentificar
-      req.login(user, { session: false }, async (error) => {
+      req.login(user, { session: false }, (error) => {
         if (error) {
           next(error)
         }
@@ -34,7 +37,7 @@ api.post('/token', async (req, res, next) => {
     } catch (error) {
       next(error)
     }
-  })(req, res, next)
-})
+  }
+)
 
 module.exports = api
