@@ -11,11 +11,13 @@
     "dev:debug": "set DEBUG=express:*,app:*& npm run dev",
     "debug": "set DEBUG=express:*,app:*& npm run start",
     "test": "mocha --exit",
-    "test:cover": "nyc npm run test"
+    "test:cover": "nyc npm run test",
+    "docker": " docker run -d -p 8000:8000 dianlion",
+    "docker:build": " docker build -t dianlion ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Diana Carolina Campuzano Garzón <dcaroli2015@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "boom": "^7.3.0",
