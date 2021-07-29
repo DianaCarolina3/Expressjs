@@ -12,8 +12,8 @@
     "debug": "set DEBUG=express:*,app:*& npm run start",
     "test": "mocha --exit",
     "test:cover": "nyc npm run test",
-    "docker": " docker run -d -p 8000:8000 dianlion",
-    "docker:build": " docker build -t dianlion ."
+    "docker": "docker run -d -p 8000:8000 dianlion",
+    "docker:build": "docker build -t dianlion ."
   },
   "keywords": [],
   "author": "Diana Carolina Campuzano Garzón <dcaroli2015@gmail.com>",
